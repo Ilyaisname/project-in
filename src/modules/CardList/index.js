@@ -10,23 +10,28 @@ class CreateList extends Component {
     }
   }
   
-  deleteRow(i) {
+  deleteRow(index) {
+    // let arr = this.state.elements.concat()
 
-    let arr = this.state.elements
-
-    arr.splice((arr.findIndex(item => item.id == i.id)), 1)
+    // arr.splice((arr.findIndex(item => item.id == i.id)), 1)
     
-    this.setState({
-      elements: arr
-    })
+    // this.setState({
+    //   elements: arr
+    // })
+
+    const elements = this.state.elements.concat()
+
+    elements.splice(index, 1)
+
+    this.setState({ elements })
   }
 
   render() {
     const data = this.state.elements
-    const ListItems = data.map((data) => 
-      <li key = {data.id} id= {data.id} className="list__item">
+    const ListItems = data.map((data, index) => 
+      <li key = {data.id} /* id= {data.id} */className="list__item">
         {data.name} <button className="btn" 
-          onClick = {() => this.deleteRow(document.getElementById(data.id))}>Удалить Элемент</button>
+          onClick = {() => this.deleteRow(index /* document.getElementById(data.id) */)}>Удалить Элемент</button>
       </li>)
     return (
       <main className="content">

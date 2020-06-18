@@ -1,0 +1,25 @@
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.menu__item {
+  color: orangered;
+  text-transform: uppercase;
+  font-weight: bold;
+  list-style: none;
+}
+
+.menu__item a {
+  color: inherit;
+}
+
+.header {
+  box-sizing: border-box;
+  padding: 2% 10%;
+}
+
+.header__text {
+  text-align: center;
+}

@@ -6,19 +6,12 @@ class CreateList extends Component {
     super(props)
     // this.deleteRow = this.deleteRow.bind(this)
     this.state = {
-      elements: this.props.data
+      elements: this.props.data,
+      inputValue: ''
     }
   }
   
   deleteRow(index) {
-    // let arr = this.state.elements.concat()
-
-    // arr.splice((arr.findIndex(item => item.id == i.id)), 1)
-    
-    // this.setState({
-    //   elements: arr
-    // })
-
     const elements = this.state.elements.concat()
 
     elements.splice(index, 1)
@@ -26,15 +19,41 @@ class CreateList extends Component {
     this.setState({ elements })
   }
 
+  handleInput = (event) => {
+    this.setState({
+      inputValue: event.target.value 
+    })
+  }
+
+  inputElement = (event) => {
+    const elements = this.state.elements.concat()
+
+    const newObj = {
+      name: event,
+      id: new Date().getTime().toString()
+    }
+
+    elements.push(newObj)
+
+    this.setState({elements})
+  }
+
   render() {
+    const In = 
+      <div>
+        <input id="textIn" type="text" onChange={this.handleInput}/> 
+        <button className="btn"
+         onClick = {this.inputElement.bind(this, this.state.inputValue)}  >Добавить</button>
+      </div>
     const data = this.state.elements
     const ListItems = data.map((data, index) => 
-      <li key = {data.id} /* id= {data.id} */className="list__item">
+      <li key = {data.id} className="list__item">
         {data.name} <button className="btn" 
-          onClick = {() => this.deleteRow(index /* document.getElementById(data.id) */)}>Удалить Элемент</button>
+          onClick = {this.deleteRow.bind(this, index)}>Удалить Элемент</button>
       </li>)
     return (
       <main className="content">
+        {In}
         <ul className="list">
           {ListItems}
         </ul>

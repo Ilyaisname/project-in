@@ -5,6 +5,7 @@ import data from './modules/dataCard'
 import Header from './modules/Header/'
 import SideBar from './modules/SideBar/'
 import './container.css'
+import ErrorBoudary from './modules/Error/Error'
 
 function App() {
   return( 
@@ -12,7 +13,9 @@ function App() {
       <Header />
       <div className="container__greed">
         <SideBar />
-        <CreateList data = {data} />
+        <ErrorBoudary>
+          <CreateList data = {data} />
+        </ErrorBoudary>
       </div>
     </div>
   )

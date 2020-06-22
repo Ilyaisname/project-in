@@ -7,10 +7,24 @@ class CreateList extends Component {
     // this.deleteRow = this.deleteRow.bind(this)
     this.state = {
       elements: this.props.data,
-      inputValue: ''
+      inputValue: null
     }
   }
-  
+
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   console.log('cardList getDerivedStateFromProps', nextProps, prevState)
+
+  //   return prevState
+  // }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.inputValue !== nextProps.data.includes(nextState.inputValue)
+  }
+
+  // getSnapshotBeforeUpdate() {
+  //   console.log('getSnapshotBeforeUpdate')
+  // }
+
   deleteRow(index) {
     const elements = this.state.elements.concat()
 
@@ -20,21 +34,34 @@ class CreateList extends Component {
   }
 
   handleInput = (event) => {
+   
     this.setState({
       inputValue: event.target.value 
     })
+  
   }
 
-  inputElement = (event) => {
+  inputElement(event) {
     const elements = this.state.elements.concat()
-
-    const newObj = {
-      name: event,
-      id: new Date().getTime().toString()
+    
+    if (event === null || event === ' ' || event === '') {
+      alert('Введите значение')
+      return
     }
+    
+    const elm = Boolean(elements.find(elem => elem.name === event))
 
-    elements.push(newObj)
-
+    if(elm) {
+      alert('Такой елемент уже есть в списке')
+    } else {
+      const newObj = {
+        name: event,
+        id: new Date().getTime().toString()
+      }
+  
+      elements.push(newObj)
+    }
+    
     this.setState({elements})
   }
 
@@ -43,7 +70,7 @@ class CreateList extends Component {
       <div>
         <input id="textIn" type="text" onChange={this.handleInput}/> 
         <button className="btn"
-         onClick = {this.inputElement.bind(this, this.state.inputValue)}  >Добавить</button>
+         onClick = {this.inputElement.bind(this, this.state.inputValue)}>Добавить</button>
       </div>
     const data = this.state.elements
     const ListItems = data.map((data, index) => 
